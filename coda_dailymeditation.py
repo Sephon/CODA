@@ -10,9 +10,9 @@ CREDENTIALS_FILE = './savvy-summit-346321-feb57bcd3238.json'
 # Google Sheet URL or ID
 SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/1Uesyw5Myla-f2dRS0uW3BmR03GtMzVkKBrlBL_LryOA/edit#gid=0'
 
-def generate_message(reflection, swedish_translation, spanish_translation):
+def generate_message(date, title, reflection, swedish_translation, spanish_translation):
     # Format the message
-    message = f"🌞 *Today's Reflection* 🌞\n\n{reflection}\n\n🇸🇪 *Swedish:* {swedish_translation}\n\n🇪🇸 *Spanish:* {spanish_translation}"
+    message = f"🌞 *In This Moment, Daily Meditation Book {date}* 🌞\n\n*{title}*\n\n{reflection}\n\n🇸🇪 *Swedish:* {swedish_translation}\n\n🇪🇸 *Spanish:* {spanish_translation}"
 
     # Copy the message to clipboard
     pyperclip.copy(message)
@@ -58,7 +58,9 @@ def fetch_reflection(sheet, date):
         if sheet_date:
             month_day = '-'.join(sheet_date.split('-')[1:])  # Extract 'MM-DD'
             if month_day == target_month_day:
-                return row.get('Reflection')  # Return the reflection text
+                title = row.get('Title')  # Extract the title
+                reflection = row.get('Reflection')  # Extract the reflection text
+                return title, reflection  # Return both the title and reflection
     
     return "No reflection found for today."
 
@@ -68,10 +70,11 @@ if __name__ == "__main__":
     
     # Connect and fetch
     sheet = connect_to_sheet()
-    reflection = fetch_reflection(sheet, datetime.datetime.now())
+    date = datetime.datetime.now()
+    title, reflection = fetch_reflection(sheet, date)
 
     # Translate to Swedish and Spanish
     swedish_translation = split_and_translate(reflection, "sv")
     spanish_translation = split_and_translate(reflection, "es")
 
-    generate_message(reflection, swedish_translation, spanish_translation)
+    generate_message(date.strftime('%Y-%m-%d'), title, reflection, swedish_translation, spanish_translation)
