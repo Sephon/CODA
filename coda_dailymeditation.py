@@ -12,7 +12,7 @@ SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/1Uesyw5Myla-f2dRS0uW3B
 
 def generate_message(date, title, reflection, swedish_translation, spanish_translation):
     # Format the message
-    message = f"🌞 *In This Moment, Daily Meditation Book {date}* 🌞\n\n*{title}*\n\n{reflection}\n\n🇸🇪 *Swedish:* {swedish_translation}\n\n🇪🇸 *Spanish:* {spanish_translation}"
+    message = f"☀ _{date}_ ☀\n*{title.replace('\n', '*\n*')}*\n\n{reflection}\n\n🇸🇪 *Swedish:* {swedish_translation}\n\n🇪🇸 *Spanish:* {spanish_translation}"
 
     # Copy the message to clipboard
     pyperclip.copy(message)
