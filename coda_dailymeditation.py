@@ -2,7 +2,7 @@ import pyperclip
 import datetime
 import gspread
 from google.oauth2.service_account import Credentials
-from translate import Translator
+from plyer import notification
 
 # Path to your downloaded JSON credentials file
 CREDENTIALS_FILE = './savvy-summit-346321-feb57bcd3238.json'
@@ -16,7 +16,12 @@ def generate_message(date, title, reflection, swedish_translation, spanish_trans
 
     # Copy the message to clipboard
     pyperclip.copy(message)
-    print("Message copied to clipboard. Ready to paste into WhatsApp!")
+    
+    notification.notify(
+            title="Clipboard Notification",
+            message=f"Text copied to clipboard for {date} to use with WhatsApp",
+            app_name="Clipboard Copier"
+            )
     
 def split_and_translate(text, target_language, chunk_size=500):
     from translate import Translator
