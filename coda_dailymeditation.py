@@ -5,7 +5,7 @@ from google.oauth2.service_account import Credentials
 from plyer import notification
 
 # Path to your downloaded JSON credentials file
-CREDENTIALS_FILE = './savvy-summit-346321-feb57bcd3238.json'
+CREDENTIALS_FILE = './google_passkey.json'
 
 # Google Sheet URL or ID
 SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/1Uesyw5Myla-f2dRS0uW3BmR03GtMzVkKBrlBL_LryOA/edit#gid=0'
